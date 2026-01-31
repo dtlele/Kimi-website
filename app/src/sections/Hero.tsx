@@ -1,0 +1,245 @@
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import { CheckCircle2 } from 'lucide-react';
+import { AnimatedButton } from '@/components/AnimatedButton';
+
+const features = [
+  {
+    title: 'Soluzioni su misura',
+    description: 'Offriamo consulenze personalizzate per le esigenze specifiche della tua azienda',
+  },
+  {
+    title: 'Innovazione e sostenibilità',
+    description: 'Supportiamo lo sviluppo di progetti innovativi, promuovendo la sostenibilità',
+  },
+  {
+    title: 'Esperienza consolidata',
+    description: 'Con la nostra esperienza, trasformiamo opportunità in risultati concreti',
+  },
+];
+
+export function Hero() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  return (
+    <section ref={ref} id="home" className="relative min-h-screen overflow-hidden">
+      {/* Background Image with Parallax */}
+      <motion.div
+        style={{ y }}
+        className="absolute inset-0 z-0"
+      >
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: 'url(/assets/hero_bg.jpg)' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-vueffe-dark/90 via-vueffe-dark/70 to-transparent" />
+      </motion.div>
+
+      {/* Animated Particles */}
+      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-vueffe-green/30 rounded-full"
+            initial={{
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+            }}
+            animate={{
+              y: [null, -20, 20],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              repeatType: 'reverse',
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Content */}
+      <motion.div
+        style={{ opacity }}
+        className="relative z-20 min-h-screen flex flex-col justify-center pt-32"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-vueffe-green/20 text-vueffe-green rounded-full text-sm font-medium mb-6">
+                  <span className="w-2 h-2 bg-vueffe-green rounded-full animate-pulse" />
+                  Consulenza Aziendale
+                </span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.3 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
+              >
+                Il Bello della Consulenza che Crea{' '}
+                <span className="text-gradient-green">Valore</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.4 }}
+                className="text-lg text-gray-300 max-w-xl"
+              >
+                La <strong className="text-white">Vueffe Consulting</strong> supporta le imprese nello sviluppo di processi e prodotti di qualità, sostenibili e innovativi, supportandole a esprimere appieno il loro potenziale come ambasciatrici di eccellenza.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.5 }}
+                className="flex flex-wrap gap-4"
+              >
+                <AnimatedButton variant="primary" size="lg" showArrow>
+                  Scopri di più
+                </AnimatedButton>
+                <AnimatedButton variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-vueffe-dark">
+                  Contattaci
+                </AnimatedButton>
+              </motion.div>
+            </div>
+
+            {/* Right Content - Stats */}
+            <motion.div
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="hidden lg:block"
+            >
+              <div className="relative">
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                  className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20"
+                >
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="text-center">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.8, type: 'spring' }}
+                        className="text-4xl font-bold text-vueffe-green mb-2"
+                      >
+                        500+
+                      </motion.div>
+                      <p className="text-gray-300 text-sm">Aziende Supportate</p>
+                    </div>
+                    <div className="text-center">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.9, type: 'spring' }}
+                        className="text-4xl font-bold text-vueffe-green mb-2"
+                      >
+                        50M+
+                      </motion.div>
+                      <p className="text-gray-300 text-sm">€ Finanziati</p>
+                    </div>
+                    <div className="text-center">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 1, type: 'spring' }}
+                        className="text-4xl font-bold text-vueffe-green mb-2"
+                      >
+                        15+
+                      </motion.div>
+                      <p className="text-gray-300 text-sm">Anni di Esperienza</p>
+                    </div>
+                    <div className="text-center">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 1.1, type: 'spring' }}
+                        className="text-4xl font-bold text-vueffe-green mb-2"
+                      >
+                        98%
+                      </motion.div>
+                      <p className="text-gray-300 text-sm">Clienti Soddisfatti</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Features Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="mt-auto bg-vueffe-dark/90 backdrop-blur-md"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="grid md:grid-cols-3 gap-8">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1 + index * 0.1 }}
+                  className="flex items-start gap-4"
+                >
+                  <div className="flex-shrink-0">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 10 }}
+                      className="w-12 h-12 bg-vueffe-green rounded-full flex items-center justify-center"
+                    >
+                      <CheckCircle2 className="w-6 h-6 text-white" />
+                    </motion.div>
+                  </div>
+                  <div>
+                    <h3 className="text-white font-semibold mb-1">{feature.title}</h3>
+                    <p className="text-gray-400 text-sm">{feature.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center pt-2"
+        >
+          <motion.div
+            animate={{ opacity: [1, 0], y: [0, 12] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="w-1.5 h-1.5 bg-white rounded-full"
+          />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
