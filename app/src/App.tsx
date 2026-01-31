@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { PageTransition } from '@/components/PageTransition';
 import { Navbar } from '@/sections/Navbar';
+import { Stats } from '@/sections/Stats';
 import { Dashboard } from '@/sections/Dashboard';
 import { Services } from '@/sections/Services';
 import { Team } from '@/sections/Team';
@@ -33,9 +34,10 @@ function App() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-gray-50/50">
+      <div className="min-h-screen bg-slate-950">
         <Navbar />
         <main>
+          <Stats />
           <Dashboard />
           <Services />
           <Projects />
