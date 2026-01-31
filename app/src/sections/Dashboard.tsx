@@ -18,7 +18,7 @@ const features = [
   },
 ];
 
-export function Hero() {
+export function Dashboard() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
